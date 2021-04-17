@@ -235,7 +235,12 @@ namespace BLE_OLED
                 FindViewById<AppCompatImageButton>(Resource.Id.buttonText).Visibility = ViewStates.Visible;
 
                 FindViewById<Android.Widget.LinearLayout>(Resource.Id.linearLayout1).AddView(drawView);
+
+                FindViewById<TextInputEditText>(Resource.Id.textInputEditText1).Visibility = ViewStates.Visible;
+                
                 FindViewById<FloatingActionButton>(Resource.Id.fab).Click += FabOnClick;
+                FindViewById<FloatingActionButton>(Resource.Id.fab).Visibility = ViewStates.Visible;
+
 
             });
 
