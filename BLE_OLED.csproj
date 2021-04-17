@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -84,14 +84,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\fonts\t.ttf" />
-    <AndroidAsset Include="Assets\fonts\t2.ttf" />
-    <AndroidAsset Include="Assets\fonts\t38.ttf" />
     <AndroidAsset Include="Assets\fonts\t314.ttf" />
-    <AndroidAsset Include="Assets\fonts\t316.ttf" />
-    <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
-    <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.xml">
@@ -216,10 +210,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_text_fields_white_36dp.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\font\" />
-    <Folder Include="Resources\Font\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
     Other similar extension points exist, see Microsoft.Common.targets.
