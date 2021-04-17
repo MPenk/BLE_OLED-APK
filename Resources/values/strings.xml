@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">OLED by Penk</string>
+    <string name="action_settings">Settings</string>
+    <string name="permission_location_rationale">Dej uprawnionko</string>
+    <string name="ok">Okejka</string>
+  <string name="serchConnection">Wyszukaj urządzenie</string>
+  <string name="clearCanva">Wyczyść ekran</string>
+  <string name="conncect_device">Połącz</string>
+</resources>

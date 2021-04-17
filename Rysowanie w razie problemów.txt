@@ -1,0 +1,58 @@
+                //currentCoor = new float[] { e.GetX(), e.GetY() };
+
+                //string draw = drawView.giveXY((int)e.GetX(), (int)e.GetY());
+
+                //drawView2.DrawPoint(currentCoor, false);
+
+                //if (e.Action == MotionEventActions.Down)
+                //{
+                //    //lastArduino = new float[] { e.GetX(), e.GetY() };
+                //    ///lastCoor = new float[] { e.GetX(), e.GetY() };
+
+                //    lastArduino = currentCoor;
+                //    lastCoor = currentCoor;
+
+                //    this.lastXarduino = e.GetX();
+                //    this.lastYarduino = e.GetY();
+                //    this.lastX = e.GetX();
+                //    this.lastY = e.GetY();
+                //    SendToArduino("{d;" + draw + "}");
+                //    lastAngle = 0;
+                //    //Tasks.Enqueue("{d;" + draw + "}");
+                //}
+
+                //if (Tasks.Count == 0)
+                //    TasksRun = false;
+
+                ////drawView.drawPoint((int)e.GetX(), (int)e.GetY());
+                //if (test == 2 || e.Action == MotionEventActions.Up)
+                //{
+                //    if (lastString != draw)
+                //    {
+                //        double angleNow = angle(Math.Abs(lastArduino[0] - currentCoor[0]), Math.Abs(lastArduino[1] - currentCoor[1]));
+                //        Console.WriteLine("{0:F5} ; {1:F5} ; {2:F8} ; X - {3:F2} ; Y - {4:F2} ; x - {5:F2} ; y - {6:F2}", lastAngle, angleNow, Math.Abs(lastAngle - angleNow), currentCoor[0], currentCoor[1], lastXarduino, lastYarduino);
+                //        double distance = Math.Sqrt(Math.Pow((lastArduino[0] - currentCoor[0]), 2) + Math.Pow((lastArduino[1] - currentCoor[1]), 2));
+
+                //        //Console.WriteLine(lastAngle + " - " + angleNow + " = " + Math.Abs(lastAngle - angleNow));
+                //        if (Math.Abs(lastAngle - angleNow) > 5 || e.Action == MotionEventActions.Up || lastDistance > distance)
+                //        {
+
+
+                //            //Snackbar.Make(FindViewById<Android.Widget.RelativeLayout>(Resource.Id.relativeLayout1), draw, Snackbar.LengthShort).SetAction("Action", (View.IOnClickListener)null).Show();
+                //            SendToArduino("{p;" + draw + "}");
+                //            drawView2.DrawPoint(currentCoor, 1);
+
+                //            //Tasks.Enqueue("{p;"+draw+"}");
+                //            lastAngle = angleNow;
+                //            lastArduino = currentCoor;
+                //            lastString = draw;
+                //        }
+                //        lastDistance = distance;
+                //    }
+                //    test = 0;
+                //}
+
+                //test++;
+
+                //this.lastX = e.GetX();
+                //this.lastY = e.GetY();
