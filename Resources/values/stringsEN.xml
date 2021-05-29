@@ -1,0 +1,12 @@
+﻿<resources>
+  <string name="app_name">OLED by Penk</string>
+  <string name="action_settings">Settings</string>
+  <string name="permission_location_rationale">Give the required permission</string>
+  <string name="ok">OK</string>
+  <string name="serchConnection">Show devicese</string>
+  <string name="clearCanva">Clear screen</string>
+  <string name="conncect_device">Connect</string>
+  <string name="clearButton">Button to clear screen</string>
+  <string name="setColorButton">Button to set color</string>
+  <string name="addTextButton">Button to add text</string>
+</resources>

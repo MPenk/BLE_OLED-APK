@@ -13,14 +13,12 @@ using Android;
 using Android.Content.PM;
 using AndroidX.Core.App;
 using Plugin.BluetoothLE;
-using System.Collections.Generic;
 using System.Text;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using AndroidX.RecyclerView.Widget;
 using Net.ArcanaStudio.ColorPicker;
 using Android.Graphics;
-using Android.Content.Res;
 using Google.Android.Material.TextField;
 
 namespace BLE_OLED
@@ -32,16 +30,13 @@ namespace BLE_OLED
 
         bool drawExist = false;
         DrawView drawView;
-        List<IDevice> devices = new List<IDevice>();
         IDevice device;
         IGattCharacteristic gattCharacteristic;
         float[] lastDrawnCoordinates = new float[2];
         float[] firstPointOfLineCoordinates = new float[2];
         int[] lastDraw = new int[2];
         double lastDistance = 0;
-        int red = 0;
-        int green = 0;
-        int blue = 0;
+        int[] RGB = new int[3];
         int multiply = 8;
         DrawStep LastDrawStep = DrawStep.StartProgram;
         int drawningStep = 0;
@@ -75,8 +70,6 @@ namespace BLE_OLED
             lp.Gravity = GravityFlags.Center;
             drawView.LayoutParameters = lp;
             drawView.SetBackgroundColor(Android.Graphics.Color.ParseColor("#000000"));
-
-
         }
 
         private void SeekbarRelease(object sender, Android.Widget.SeekBar.StopTrackingTouchEventArgs e)
@@ -86,17 +79,17 @@ namespace BLE_OLED
 
         private void sendColorToArduino() {
 
-            string sRed = Convert.ToString(red, 2);
+            string sRed = Convert.ToString(RGB[0], 2);
             int tmp = sRed.Length;
             for (int i = 4; i >= tmp; i--)
                 sRed = "0" + sRed;
 
-            string sGreen = Convert.ToString(green, 2);
+            string sGreen = Convert.ToString(RGB[1], 2);
             tmp = sGreen.Length;
             for (int i = 5; i >= tmp; i--)
                 sGreen = "0" + sGreen;
 
-            string sBlue = Convert.ToString(blue, 2);
+            string sBlue = Convert.ToString(RGB[2], 2);
             tmp = sBlue.Length;
             for (int i = 4; i >= tmp; i--)
                 sBlue = "0" + sBlue;
@@ -113,19 +106,8 @@ namespace BLE_OLED
                 second = sGreen[i] + second;
             }
 
-
-
             Console.WriteLine(first+second+" <- " + sRed+" "+sGreen +" "+ sBlue);
             SendToArduino("{k;" + Convert.ToInt32(first, 2) + "," + Convert.ToInt32(second, 2) + "}");
-        }
-
-        public MaterialButton addDeviceToLayout(int id)
-        {
-            MaterialButton button = new MaterialButton(this);
-            FindViewById<Android.Widget.LinearLayout>(Resource.Id.linearLayout1).AddView(button);
-            button.Id = 100 + id;
-            button.Click += btnBLEClicked;
-            return button;
         }
 
         private void buttonClearClicked(object sender, EventArgs e)
@@ -175,32 +157,6 @@ namespace BLE_OLED
             }
         }
 
-
-        private object DeviceDiscovered(IDevice device)
-        {
-            string a = device.Name + " " + device.Uuid + " " + device.NativeDevice;
-            MaterialButton btn = new MaterialButton(this);
-            btn.Text = a;
-            btn.Id = 100 + devices.Count;
-            FindViewById<Android.Widget.LinearLayout>(Resource.Id.linearLayout1).AddView(btn);
-            devices.Add(device);
-            btn.Click += btnBLEClicked;
-            return 0;
-        }
-
-        private void btnBLEClicked(object sender, EventArgs e)
-        {
-            var btn = (MaterialButton)sender;
-            int id = btn.Id - 100;
-            var device = devices[id];
-            Snackbar.Make(FindViewById<Android.Widget.LinearLayout>(Resource.Id.linearLayout), "id " + id, Snackbar.LengthShort)
-                .SetAction("Action", (View.IOnClickListener)null).Show();
-            device.WhenConnected().Subscribe(result => Connected(result));
-
-            device.Connect();
-
-        }
-
         private object Connected(IDevice result)
         {
 
@@ -244,12 +200,15 @@ namespace BLE_OLED
 
             });
 
-            Snackbar.Make(FindViewById<Android.Widget.LinearLayout>(Resource.Id.linearLayout), "Połączono", Snackbar.LengthShort)
-            .SetAction("Action", (View.IOnClickListener)null).Show();
+
             gattCharacteristic = result;
             drawExist = true;
 
-
+            
+            Snackbar.Make(FindViewById<Android.Widget.LinearLayout>(Resource.Id.linearLayout), "Połączono", Snackbar.LengthShort)
+                .SetAction("Action", (View.IOnClickListener)null).Show();
+                this.RGB = drawView.GetColor();
+                sendColorToArduino();
         }
 
         private void buttonAddText(object sender, EventArgs e)
@@ -336,8 +295,6 @@ namespace BLE_OLED
             }
             return base.OnTouchEvent(e);
         }
-
-
 
         private void DrawLines(float[] currentCoordinates, MotionEventActions action, DrawView drawView)
         {
@@ -472,6 +429,8 @@ namespace BLE_OLED
             View view = (View)sender;
             Snackbar.Make(view, "Zatrzymano", Snackbar.LengthLong)
                 .SetAction("Action", (View.IOnClickListener)null).Show();
+            Finish();
+            StartActivity(this.Intent);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
@@ -489,10 +448,10 @@ namespace BLE_OLED
         public void OnColorSelected(int dialogId, Color color)
         {
             Console.WriteLine(color.R + " " + color.G + " " + color.B);
-            red = (int)color.R / (255/31);
-            green = (int)color.G / (255 / 63);
-            blue = (int)color.B / (255 / 31);
-            drawView.SetColor(red, green, blue);
+            RGB[0] = (int)color.R / (255 / 31);
+            RGB[1] = (int)color.G / (255 / 63);
+            RGB[2] = (int)color.B / (255 / 31);
+            drawView.SetColor(RGB);
             sendColorToArduino();
 
         }

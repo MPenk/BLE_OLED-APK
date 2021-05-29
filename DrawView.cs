@@ -19,6 +19,7 @@ namespace BLE_OLED
         Paint paintLine = new Paint();
         Paint paintScreen = new Paint();
         Typeface typeface;
+        int[] RGB = {255,0,0};
         int multiply;
         int[] location = new int[2];
 
@@ -31,7 +32,8 @@ namespace BLE_OLED
             this.canva = new Canvas(bitmapa);
 
             this.paintLine.SetStyle(Paint.Style.Fill);
-            this.paintLine.SetARGB(255, 1, 1, 255);
+            //this.paintLine.SetARGB(255, 1, 1, 255);
+            this.SetColor(this.RGB);
             this.paintLine.StrokeWidth = multiply;
 
             //this.canva.DrawPaint(this.paintLine);
@@ -57,8 +59,18 @@ namespace BLE_OLED
         //    this.PostInvalidate();
         //}
 
+        public int[] GetColor() 
+        {
+            return new int[] { RGB[0] / (255 / 31), RGB[1] / (255 / 63), RGB[2] / (255 / 31)};
+        }
+
         public void SetColor(int red, int green, int blue) {
             this.paintLine.SetARGB(255, red*(255 / 31), green * (255 / 63), blue * (255 / 31));
+        }
+        public void SetColor(int[] RGB)
+        {
+            this.RGB = RGB;
+            this.paintLine.SetARGB(255, RGB[0] * (255 / 31), RGB[1] * (255 / 63), RGB[2] * (255 / 31));
         }
 
         protected override void OnSizeChanged(int w, int h, int oldw, int oldh)
@@ -66,8 +78,6 @@ namespace BLE_OLED
             this.GetLocationOnScreen(location);
             base.OnSizeChanged(w, h, oldw, oldh);
         }
-
-
 
         public void DrawPoint(float[] coordinates)
         {

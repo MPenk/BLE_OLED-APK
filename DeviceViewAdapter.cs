@@ -1,4 +1,5 @@
-﻿using Android.Views;
+﻿using Android.Graphics;
+using Android.Views;
 using Android.Widget;
 using AndroidX.RecyclerView.Widget;
 using Google.Android.Material.Button;
@@ -29,6 +30,7 @@ namespace BLE_OLED
             myHolder.deviceUuid.Text = devices[position].Uuid.ToString();
             myHolder.deviceName.Text = devices[position].Name;
             if (myHolder.deviceName.Text == "" || myHolder.deviceName.Text == null) myHolder.deviceName.Text = "NoName";
+            if (myHolder.deviceName.Text == "BT05") myHolder.deviceName.SetTextColor(Color.Green); 
             myHolder.id = position;
         }
 
